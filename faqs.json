@@ -1,0 +1,22 @@
+[
+  {
+    "question": "How do I reset my password?",
+    "answer": "Go to Settings → Account → Reset Password. You'll get an email with a reset link."
+  },
+  {
+    "question": "What are your support hours?",
+    "answer": "Support is available Monday–Friday, 9:00 AM to 6:00 PM IST."
+  },
+  {
+    "question": "How can I contact customer service?",
+    "answer": "You can contact us via support@example.com or call +91-98765-43210."
+  },
+  {
+    "question": "Can I use the service offline?",
+    "answer": "No — this service requires an internet connection to access the backend."
+  },
+  {
+    "question": "Where can I download invoice?",
+    "answer": "Invoices are available under Billing → Invoices in your account dashboard."
+  }
+]

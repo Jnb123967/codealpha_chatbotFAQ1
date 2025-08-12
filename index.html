@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>FAQ Chatbot</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Roboto, 'Segoe UI', Arial; background:#f7f7fb; margin:0; padding:0; display:flex; align-items:center; justify-content:center; height:100vh; }
+      .card { background:white; width:640px; padding:20px; border-radius:12px; box-shadow: 0 8px 30px rgba(20,20,50,0.08); }
+      h1{margin-top:0;font-size:20px}
+      #conversation { height:300px; overflow:auto; border:1px solid #eee; padding:12px; border-radius:8px; background:#fbfbfe; }
+      .user{ text-align:right; margin:8px 0 }
+      .bot{ text-align:left; margin:8px 0 }
+      .bubble{ display:inline-block; padding:10px 12px; border-radius:10px; max-width:78%; }
+      .bubble.user{ background:#2b6cff; color:white }
+      .bubble.bot{ background:#eef2ff; color:#111 }
+      form{ display:flex; gap:8px; margin-top:12px }
+      input[type=text]{ flex:1; padding:10px 12px; border-radius:8px; border:1px solid #ddd }
+      button{ padding:10px 14px; border-radius:8px; border:none; background:#2b6cff; color:white }
+      small.meta{ color:#666 }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>FAQ Chatbot</h1>
+      <div id="conversation"></div>
+      <form id="askForm" onsubmit="return ask(event)">
+        <input id="q" autocomplete="off" placeholder="Ask a question...">
+        <button>Ask</button>
+      </form>
+      <p style="margin:8px 0 0"><small class="meta">Model: TF‑IDF + cosine similarity. Edit <code>faqs.json</code> to add your FAQs.</small></p>
+    </div>
+
+    <script>
+      const conv = document.getElementById('conversation');
+      function appendMessage(text, who='bot') {
+        const div = document.createElement('div');
+        div.className = who === 'user' ? 'user' : 'bot';
+        const b = document.createElement('span');
+        b.className = 'bubble ' + who;
+        b.textContent = text;
+        div.appendChild(b);
+        conv.appendChild(div);
+        conv.scrollTop = conv.scrollHeight;
+      }
+
+      async function ask(e){
+        e.preventDefault();
+        const input = document.getElementById('q');
+        const text = input.value.trim();
+        if(!text) return false;
+        appendMessage(text, 'user');
+        input.value = '';
+
+        try {
+          const res = await fetch('/api/ask', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({question: text})
+          });
+          const data = await res.json();
+          appendMessage(data.answer || 'No answer', 'bot');
+        } catch(err){
+          appendMessage('Error: ' + err.message, 'bot');
+        }
+        return false;
+      }
+    </script>
+  </body>
+</html>

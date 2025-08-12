@@ -1,27 +1,21 @@
-from flask import Flask, request, jsonify
-import json
-import difflib
+from flask import Flask, request, jsonify, render_template
+from faq_bot import FAQBot
+import os
 
 app = Flask(__name__)
+# instantiate chatbot; it will load faqs.json from project root
+bot = FAQBot(faq_path=os.path.join(app.root_path, 'faqs.json'))
 
-with open("faq_data.json", "r") as file:
-    faqs = json.load(file)
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-def find_best_answer(user_question):
-    questions = [faq["question"] for faq in faqs]
-    match = difflib.get_close_matches(user_question, questions, n=1, cutoff=0.5)
-    if match:
-        for faq in faqs:
-            if faq["question"] == match[0]:
-                return faq["answer"]
-    return "Sorry, I don't know the answer to that question."
+@app.route('/api/ask', methods=['POST'])
+def ask():
+    data = request.get_json(force=True)
+    q = data.get('question', '')
+    result = bot.answer(q)
+    return jsonify(result)
 
-@app.route("/chat", methods=["POST"])
-def chat():
-    data = request.get_json()
-    question = data.get("question", "")
-    answer = find_best_answer(question)
-    return jsonify({"answer": answer})
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
