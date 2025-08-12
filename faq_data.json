@@ -1,0 +1,18 @@
+[
+    {
+        "question": "What is your name?",
+        "answer": "I am your friendly FAQ chatbot."
+    },
+    {
+        "question": "How can I contact support?",
+        "answer": "You can contact support via email at support@example.com."
+    },
+    {
+        "question": "What is your working hours?",
+        "answer": "We are available from 9 AM to 6 PM, Monday to Friday."
+    },
+    {
+        "question": "Where are you located?",
+        "answer": "Our headquarters is in Bangalore, India."
+    }
+]
