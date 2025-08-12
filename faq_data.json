@@ -14,5 +14,9 @@
     {
         "question": "Where are you located?",
         "answer": "Our headquarters is in Bangalore, India."
+    },
+    {
+        "question": "What services do you provide?",
+        "answer": "We provide AI-powered chatbot solutions and automation tools."
     }
 ]
