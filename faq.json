@@ -1,0 +1,22 @@
+[
+    {
+        "question": "What is your return policy?",
+        "answer": "You can return any item within 30 days of purchase."
+    },
+    {
+        "question": "Do you offer free shipping?",
+        "answer": "Yes, we offer free shipping on orders over $50."
+    },
+    {
+        "question": "How can I track my order?",
+        "answer": "You can track your order using the tracking link sent to your email."
+    },
+    {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept credit cards, debit cards, PayPal, and bank transfers."
+    },
+    {
+        "question": "How can I contact customer support?",
+        "answer": "You can contact us via email at support@example.com."
+    }
+]
